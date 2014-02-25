@@ -8,6 +8,7 @@
 	<meta charset="UTF-8">
 	<meta name="description" content="showing steps of compilation process">
 	<meta name="author" content="Ralf Becker">
+	<meta name="shoutouts" content="Stuart Sandine">
 
 	<style type="text/css">
 
@@ -72,8 +73,8 @@ function init() {
 <div id="page" class="container">
 <div class="row">
 	<h1 class="step" >Source Code</h1>
-	<p class="code">int a;<br>float b = 3 + 4*b;</p>
-	<p class="code"><br>float b = 3 + 4*b;</p>
+	<p class="code">int a;<br>float b = 3 + 4*a;</p>
+	<p class="code"><br>float b = 3 + 4*a;</p>
 </div>
 
 <div id="S1" class="row">
@@ -96,7 +97,7 @@ at start.</p>
 	<h1 class="step">Semantic Analysis</h1>
 	<ul class="code">
 		<li>no semantic objections</li>
-		<li>add objects into AST <br>(c. next slide)</li>
+		<li>add objects into ST/AST <br>(c. next slide)</li>
 	</ul>
 	<ul class="code">
 		<li>"Error: attempting to access undeclared identifier (a)"</li>

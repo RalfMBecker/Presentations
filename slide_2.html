@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+<head>
+
+	<title>Compiling from Source Code</title>
+	<base href="file:///home/ralf/web/html/presentation/">
+
+	<meta charset="UTF-8">
+	<meta name="description" content="showing steps of compilation process">
+	<meta name="author" content="Ralf Becker">
+	<meta name="shoutouts" content="Stuart Sandine">
+
+	<style type="text/css">
+
+		.row
+		{
+		float:left;
+		width:100%;
+		}
+
+		.other
+		{
+		float:left;
+		width:13.3%;
+		}
+
+		.code 
+		{
+		float:left;
+		width:20%;
+		}
+
+		.container 
+		{
+		margin:0 auto;
+		overflow:hidden;
+		width:1200px;
+		}
+
+		.highlighted{
+		background-color:orange;
+		}
+
+		ul {
+		list-style-type:disc;
+		padding:0;
+		}
+
+	</style>
+
+
+</head>
+
+<body>
+
+<script>
+window.onload = init;
+
+function init() {
+// slice: cast <DOM object> to <array> for easier access
+  var rows = [].slice.call(document.getElementsByClassName('row'));
+  rows.forEach(function(row) {
+    row.onclick = function(e) {
+      rows.forEach(function(row){
+        row.classList.remove('highlighted');  
+      });
+    row.classList.add('highlighted'); 
+    }
+  });
+}
+</script>
+
+<h2 style="text-align:center">Simplified Translation Process</h2>
+
+<div id="page" class="container">
+
+<div class="row">
+	<h3 class="code">"Current SC"</h3>
+	<h3 class="other">Symbol Table</h3>
+	<h3 class="other">Analyze</h3>
+	<h3 class="other">CFG object</h3>
+	<h3 class="code">AST/ST Entry</h3>
+	<h3 class="code"="text-align:center">IR Generated</h3>
+</div>
+
+<div class="row">
+	<p class="code">int a;<br>float b = 3 + 4 * a;</p>
+	<p class="other">empty</p>
+	<p class="other">int a;</p>
+	<p class="other">Declaration</p>
+	<ul class="code"> 
+		<li>exprID (a)</li>
+		<li>a -> tmp%1</li>
+	</ul>
+	<p class="code"><b>Declare</b>: tmp%1, a, int</p>
+</div>
+
+<div class="row">
+	<p class="code">float b = 3 + 4 * tmp%1;</p>
+	<ul class="other"> 
+		<li>a -> tmp%1</li>
+	</ul>
+	<p class="other">float b;</p>
+	<p class="other">Declaration</p>
+	<ul class="code"> 
+		<li>exprID (b)</li>
+		<li>b -> tmp%2</li>
+	</ul>
+	<p class="code"><b>Declare</b>: tmp%2, b, float </p>
+</div>
+ 
+<div class="row">
+	<p class="code">tmp%2 = 3 + 4 * tmp%1;</p>
+	<ul class="other"> 
+		<li>a -> tmp%1</li>
+		<li>b -> tmp%2</li>
+	</ul>
+	<p class="other">4 * tmp%1</p>
+	<p class="other">Expression</p>
+	<p class="code">exprID(<i>exprLIT</i>, <i>exprOP</i>, <i>exprID</i>))</p>
+	<p class="code"><b>Mul</b>: tmp%3, 4, tmp%1</p>
+</div>
+
+<div class="row">
+	<p class="code">tmp%2 = 3 + tmp%3;</p>
+	<ul class="other"> 
+		<li>a -> tmp%1</li>
+		<li>b -> tmp%2</li>
+	</ul>
+	<p class="other">3 + tmp%3</p>
+	<p class="other">Expression</p>
+	<p class="code">exprID(<i>exprLIT</i>, <i>exprOP</i>, <i>exprID</i>))</p>
+	<p class="code"><b>Add</b>: tmp%4, 3, tmp%3</p>
+</div>
+
+<div class="row">
+	<p class="code">tmp%2 = tmp%4;</p>
+	<ul class="other"> 
+		<li>a -> tmp%1</li>
+		<li>b -> tmp%2</li>
+	</ul>
+	<p class="other">tmp%4; (type)</p>
+	<p class="other">Conversion</p>
+	<p class="code">exprID(exprTMP, float)</p>
+	<p class="code"><b>Convert</b>: tmp%5, tmp%4, float</p>
+</div>
+
+<div class="row">
+	<p class="code">tmp%2 = tmp%5;</p>
+	<ul class="other"> 
+		<li>a -> tmp%1</li>
+		<li>b -> tmp%2</li>
+	</ul>
+	<p class="other">tmp%2 = tmp%5;</p>
+	<p class="other">Assignment</p>
+	<p class="code">exprID = <i>exprID</i></p>
+	<p class="code"><b>Assign</b>: tmp%2, tmp%5</p>
+</div>
+
+</div> <!-- end of enclosing 'page' division -->
+
+<a href="slide_1.html">Prior Slide</a>
+
+</body>
+</html>
