@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+
+	<title>Compiling from Source Code</title>
+	<base href="file:///home/ralf/web/html/presentation/">
+
+	<meta charset="UTF-8">
+	<meta name="description" content="showing steps of compilation process">
+	<meta name="author" content="Ralf Becker">
+
+	<style type="text/css">
+
+		.row
+		{
+		float:left;
+		width:100%;
+		}
+
+		.step
+		{
+		float:left;
+		width:50%;
+		}
+
+		.code 
+		{
+		float:left;
+		width:25%;
+		}
+
+		.container 
+		{
+		margin:0 auto;
+		overflow:hidden;
+		width:1150px;
+		}
+
+		.highlighted{
+		background-color:orange;
+		}
+
+		ul {
+		list-style-type:disc;
+		padding:0;
+		}
+
+	</style>
+
+
+</head>
+
+<body>
+
+<script>
+window.onload = init;
+
+function init() {
+// slice: cast <DOM object> to <array> for easier access
+  var rows = [].slice.call(document.getElementsByClassName('row'));
+  rows.forEach(function(row) {
+    row.onclick = function(e) {
+      rows.forEach(function(row){
+        row.classList.remove('highlighted');  
+      });
+    row.classList.add('highlighted'); 
+    }
+  });
+}
+</script>
+
+<div id="page" class="container">
+<div class="row">
+	<h1 class="step" >Source Code</h1>
+	<p class="code">int a;<br>float b = 3 + 4*b;</p>
+	<p class="code"><br>float b = 3 + 4*b;</p>
+</div>
+
+<div id="S1" class="row">
+	<h1 class="step">Lexer</h1>
+	<p class="code"><i>tok_TYPE</i> int, <i>tok_ID</i> "a", ...<br> 
+		        ..., <i>tok_OP</i> '+', <i>tok_LIT_INT</i> 4, <br>
+		        <i>tok_OP</i> '*', <i>tok_ID</i> "a"
+	</p>
+	<p class="code"><br>Same, except no (<i>tok_TYPE</i> int, <i>tok_ID</i> "a") 
+at start.</p>
+</div>
+
+<div id="S2" class="row">
+	<h1 class="step">Parser</h1>
+	<p class="code"><br>Syntactically fine - wave by</p>
+	<p class="code"><br>Syntactically fine - wave by</p>
+</div>
+
+<div id="S3" class="row">
+	<h1 class="step">Semantic Analysis</h1>
+	<ul class="code">
+		<li>no semantic objections</li>
+		<li>add objects into AST <br>(c. next slide)</li>
+	</ul>
+	<ul class="code">
+		<li>"Error: attempting to access undeclared identifier (a)"</li>
+		<li>stop compilation</li>
+	</ul>
+</div>
+
+<div id="S4" class="row">
+	<h1 class="step">Code Generator (IR)</h1>
+	<ul class="code">
+		<li>Declare: temp%1, a, int</li>
+		<li>Declare: temp%2, b, float</li>
+		<li>Convert: temp%3, 4, float</li>
+		<li>Add:     temp%4, temp%3, temp%1</li>
+		<li>...</li>
+	</ul>
+	<p class="code" style="text-align:center">n/a</p>
+</div>
+
+</div>
+
+<br><br>
+<a href="slide_2.html">Next Slide</a>
+
+</body>
+</html>
