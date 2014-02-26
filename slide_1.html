@@ -3,7 +3,8 @@
 <head>
 
 	<title>Compiling from Source Code</title>
-	<base href="file:///home/ralf/web/html/presentation/">
+	<!-- <base href="file:///home/ralf/web/html/presentation/"> -->
+	<link rel="stylesheet" type="text/css" href="slide_1.css">
 
 	<meta charset="UTF-8">
 	<meta name="description" content="showing steps of compilation process">
@@ -12,42 +13,8 @@
 
 	<style type="text/css">
 
-		.row
-		{
-		float:left;
-		width:100%;
-		}
 
-		.step
-		{
-		float:left;
-		width:50%;
-		}
-
-		.code 
-		{
-		float:left;
-		width:25%;
-		}
-
-		.container 
-		{
-		margin:0 auto;
-		overflow:hidden;
-		width:1150px;
-		}
-
-		.highlighted{
-		background-color:orange;
-		}
-
-		ul {
-		list-style-type:disc;
-		padding:0;
-		}
-
-	</style>
-
+</style>
 
 </head>
 
@@ -73,8 +40,8 @@ function init() {
 <div id="page" class="container">
 <div class="row">
 	<h1 class="step" >Source Code</h1>
-	<p class="code">int a;<br>float b = 3 + 4*a;</p>
-	<p class="code"><br>float b = 3 + 4*a;</p>
+	<p class="code">int a;<br>float b = 3 + 4 * a;</p>
+	<p class="code"><br>float b = 3 + 4 * a;</p>
 </div>
 
 <div id="S1" class="row">
@@ -108,11 +75,12 @@ at start.</p>
 <div id="S4" class="row">
 	<h1 class="step">Code Generator (IR)</h1>
 	<ul class="code">
-		<li>Declare: temp%1, a, int</li>
-		<li>Declare: temp%2, b, float</li>
-		<li>Convert: temp%3, 4, float</li>
-		<li>Add:     temp%4, temp%3, temp%1</li>
-		<li>...</li>
+		<li>Declare: tmp%1, a, int</li>
+		<li>Declare: tmp%2, b, float</li>
+		<li>Add:     tmp%3, 4, tmp%1</li>
+		<li>Add:     tmp%4, 3, tmp%3</li>
+		<li>Convert: tmp%5, tmp%4, float</li> 
+		<li>Assign:  tmp%2, tmp%5</li>
 	</ul>
 	<p class="code" style="text-align:center">n/a</p>
 </div>

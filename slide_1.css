@@ -1,0 +1,29 @@
+.row{
+		float:left;
+		width:100%;
+}
+
+.step{
+		float:left;
+		width:50%;
+}
+
+.code{
+		float:left;
+		width:25%;
+}
+
+.container{
+		margin:0 auto;
+		overflow:hidden;
+		width:1150px;
+}
+
+.highlighted{
+		background-color:orange;
+}
+
+ul{
+		list-style-type:disc;
+		padding:0;
+}
