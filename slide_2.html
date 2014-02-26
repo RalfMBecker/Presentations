@@ -79,7 +79,7 @@ function init() {
 	</ul>
 	<p class="other">4 * tmp%1</p>
 	<p class="other">Expression</p>
-	<p class="code">objID(<i>objLIT</i>, <i>objOP</i>, <i>objID</i>))</p>
+	<p class="code">objTMP(<i>objLIT</i>, <i>objOP</i>, <i>objTMP</i>))</p>
 	<p class="code"><b>Mul</b>: tmp%3, 4, tmp%1</p>
 </div>
 
@@ -91,7 +91,7 @@ function init() {
 	</ul>
 	<p class="other">3 + tmp%3</p>
 	<p class="other">Expression</p>
-	<p class="code">objID(<i>objLIT</i>, <i>objOP</i>, <i>objID</i>))</p>
+	<p class="code">objTMP(<i>objLIT</i>, <i>objOP</i>, <i>objTMP</i>))</p>
 	<p class="code"><b>Add</b>: tmp%4, 3, tmp%3</p>
 </div>
 
@@ -103,7 +103,7 @@ function init() {
 	</ul>
 	<p class="other">tmp%4; (type)</p>
 	<p class="other">Conversion</p>
-	<p class="code">objID(<i>objTMP</i>, <i>type</i>)</p>
+	<p class="code">objTMP(<i>objTMP</i>, <i>type</i>)</p>
 	<p class="code"><b>Convert</b>: tmp%5, tmp%4, float</p>
 </div>
 
@@ -115,7 +115,7 @@ function init() {
 	</ul>
 	<p class="other">tmp%2 = tmp%5;</p>
 	<p class="other">Assignment</p>
-	<p class="code">objID(<i>objID</i>)</p>
+	<p class="code">objTMP(<i>objTMP</i>)</p>
 	<p class="code"><b>Assign</b>: tmp%2, tmp%5</p>
 </div>
 
